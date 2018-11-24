@@ -1,0 +1,32 @@
+fira (File + Jira)
+
+WC_01:
+- Create empty mvn project (from base archetype), repo, fira
+
+WC_02:
+- Mechanism for downloading page
+
+WC_03:
+- Links search engine (filters for external pages/static content)
+
+WC_04:
+- Crawler mechanism using WC_002 and WC_003
+
+WC_05:
+- User friendly report of found links
+
+WC_06:
+- make README.md with instructions
+
+WC_07:
+- Some analytics for those links (how many, any dead links)
+
+WC_08:
+- Analytics for external links
+
+WC_09:
+- Add load times
+
+WC_10:
+- Think of next features(more configuration - timeouts, similar links that can be as well visited - wipro + wiprodigita + buildit.wiprodigital), edit previous
+firas if needed.
