@@ -61,5 +61,5 @@ WC_19:
 WC_20:
 - find and fix a problem with .attach_pid files generated on every run of tests from IntelliJ
 
-WC_21:
+WC_21 (DONE):
 - filter links for externals so crawler wont go into those

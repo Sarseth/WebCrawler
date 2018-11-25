@@ -1,11 +1,10 @@
 package pl.sarseth.webcrawler.page.link;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import pl.sarseth.webcrawler.TestUtils;
 
-import java.io.File;
 import java.io.IOException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,39 +13,41 @@ import static org.hamcrest.Matchers.hasSize;
 @DisplayName("Verification that link searcher can find links")
 class LinkSearcherTest {
 
-    private static final String WIKIPEDIA_PAGE = "wikipedia.html";
-
     private LinkSearcher linkSearcher = new LinkSearcher();
 
     @Test
     @DisplayName("Check if links in wikipage can be found")
     void findAllLinksInHtmlPage() throws IOException {
         // GIVEN
-        var wikipedia = getWikipediaPage();
-        var expectedNumberOfLinks = 320;
+        var wikipedia = TestUtils.getPage(TestUtils.WIKIPEDIA_PAGE);
+        var expectedNumberOfLinks = 290; //under wikipedia.org and matching regex .+(/|html|htm)+$
 
         // WHEN
-        var allLinksInDocument = linkSearcher.findAllLinksInDocument(wikipedia);
+        var allLinksInDocument = linkSearcher.findAllLinksInDocument(wikipedia, "wikipedia.org");
 
         // THEN
         assertThat(allLinksInDocument, hasSize(expectedNumberOfLinks));
     }
 
     @Test
-    @DisplayName("Null proof test")
-    void nullProofTest() {
+    @DisplayName("Expect null pointer when host address not defined")
+    void nullProofTestForHostAddress() throws IOException {
         // GIVEN
-        // WHEN
-        var allLinksInDocument = linkSearcher.findAllLinksInDocument(null);
+        var wikipedia = TestUtils.getPage(TestUtils.WIKIPEDIA_PAGE);
 
-        // THEN
-        assertThat(allLinksInDocument, hasSize(0));
+        // WHEN
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            linkSearcher.findAllLinksInDocument(wikipedia, null);
+        });
     }
 
-    private Document getWikipediaPage() throws IOException {
-        var wikipediaUrl = Thread.currentThread().getContextClassLoader().getResource(WIKIPEDIA_PAGE);
-        var file = new File(wikipediaUrl.getPath());
-        return Jsoup.parse(file, "UTF-8", "http://www.wikipedia.com");
+    @Test
+    @DisplayName("Expect null pointer when document not found")
+    void nullProofTest() {
+        // WHEN
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            linkSearcher.findAllLinksInDocument(null, null);
+        });
     }
 
 }
