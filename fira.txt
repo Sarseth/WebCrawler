@@ -6,8 +6,8 @@ WC_01 (DONE):
 WC_02 (DONE):
 - Mechanism for downloading page
 
-WC_03:
-- Links search engine (filters for external pages/static content)
+WC_03 (DONE):
+- Links search engine // filter of external moved to WC_21
 
 WC_04:
 - Crawler mechanism using WC_002 and WC_003
@@ -60,3 +60,6 @@ WC_19:
 
 WC_20:
 - find and fix a problem with .attach_pid files generated on every run of tests from IntelliJ
+
+WC_21:
+- filter links for externals so crawler wont go into those

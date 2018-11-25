@@ -22,7 +22,6 @@ class PageDownloaderTest {
         String url = "https://google.pl";
 
         // WHEN
-        // WHEN
         Optional<Document> document = pageDownloader.downloadPage(url);
 
         // THEN
