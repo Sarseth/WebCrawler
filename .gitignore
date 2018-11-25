@@ -121,3 +121,6 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 # End of https://www.gitignore.io/api/java,maven,intellij+all
+
+# Find the reason why attach_pid files are generated, when tests run from IntelliJ
+.attach_pid*

@@ -1,9 +1,9 @@
 fira (File + Jira)
 
-WC_01:
+WC_01 (DONE):
 - Create empty mvn project (from base archetype), repo, fira
 
-WC_02:
+WC_02 (DONE):
 - Mechanism for downloading page
 
 WC_03:
@@ -28,5 +28,35 @@ WC_09:
 - Add load times
 
 WC_10:
-- Think of next features(more configuration - timeouts, similar links that can be as well visited - wipro + wiprodigita + buildit.wiprodigital), edit previous
-firas if needed.
+- Think of next features(more configuration - timeouts, similar links that can be as well visited - wipro + wiprodigita + buildit.wiprodigital)
+
+WC_11:
+- Enable to input proxy
+
+WC_12:
+- Mechanism to find out if you get back on index.html (redirect)
+
+WC_13:
+- Max pages to find
+
+WC_14:
+- Handle paging. Addresses like coolpage.com/allUsers/1/info, coolpage.com/allUsers/2/info, ..., coolpage.com/allUsers/n/info, could be somehow counted and per
+config saying to ignore if more than X
+
+WC_15:
+- Verbose run - printing what was found during run
+
+WC_16:
+- Set things like USER_AGENT into properties file
+
+WC_17:
+- Implement logging mechanism, instead of 'sout'
+
+WC_18:
+- Validate user input against base URL regex
+
+WC_19:
+- autocomplete page of
+
+WC_20:
+- find and fix a problem with .attach_pid files generated on every run of tests from IntelliJ
