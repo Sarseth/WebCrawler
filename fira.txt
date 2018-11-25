@@ -9,7 +9,7 @@ WC_02 (DONE):
 WC_03 (DONE):
 - Links search engine // filter of external moved to WC_21
 
-WC_04:
+WC_04 (DONE):
 - Crawler mechanism using WC_002 and WC_003
 
 WC_05:
