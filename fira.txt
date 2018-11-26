@@ -12,7 +12,7 @@ WC_03 (DONE):
 WC_04 (DONE):
 - Crawler mechanism using WC_002 and WC_003
 
-WC_05:
+WC_05 (DONE):
 - User friendly report of found links
 
 WC_06:
@@ -55,7 +55,7 @@ WC_17:
 WC_18:
 - Validate user input against base URL regex
 
-WC_19:
+WC_19(CLOSED AS INVALID):
 - autocomplete page of
 
 WC_20:
@@ -63,3 +63,6 @@ WC_20:
 
 WC_21 (DONE):
 - filter links for externals so crawler wont go into those
+
+WC_22:
+- bug to fix, if page contains link to page.com/test and www.page.com/test it goes to both of them

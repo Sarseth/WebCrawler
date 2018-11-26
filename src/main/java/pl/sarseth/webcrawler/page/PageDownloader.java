@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Optional;
 
-public class PageDownloader {
+class PageDownloader {
 
     private static final String USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0";
 
-    public Optional<Document> downloadPage(String url) {
+    Optional<Document> downloadPage(String url) {
         try {
             var document = Jsoup.connect(url).userAgent(USER_AGENT).get();
             return Optional.of(document);

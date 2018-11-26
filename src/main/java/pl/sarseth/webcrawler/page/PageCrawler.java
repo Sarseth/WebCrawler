@@ -1,10 +1,15 @@
 package pl.sarseth.webcrawler.page;
 
+import org.apache.commons.lang3.StringUtils;
+import org.jsoup.nodes.Document;
+import pl.sarseth.webcrawler.page.link.LinkData;
 import pl.sarseth.webcrawler.page.link.LinkSearcher;
+import pl.sarseth.webcrawler.report.ReportAnalyzer;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -12,33 +17,39 @@ public class PageCrawler {
 
     private static final String REGEX_FOR_HTTP_WWW_PREFIX = "^(http://www\\.|https://www\\.|http://|https://)";
 
-    private Set<String> pagesVisited;
+    private Set<String> pagesVisited = new HashSet<>();
 
-    private List<String> pagesToVisit;
+    private List<String> pagesToVisit = new LinkedList<>();
 
-    private PageDownloader pageDownloader;
+    private PageDownloader pageDownloader = new PageDownloader();
 
-    private LinkSearcher linkSearcher;
+    private LinkSearcher linkSearcher = new LinkSearcher();
 
     private String hostAddress;
 
     public static PageCrawler createPageCrawler(String firstUrlToVisit) {
-        PageCrawler pageCrawler = new PageCrawler();
+        Objects.requireNonNull(StringUtils.trimToNull(firstUrlToVisit));
+
+        var pageCrawler = new PageCrawler();
         pageCrawler.pagesToVisit.add(firstUrlToVisit);
-        pageCrawler.pageDownloader = new PageDownloader();
-        pageCrawler.linkSearcher = new LinkSearcher();
         pageCrawler.hostAddress = firstUrlToVisit.replaceAll(REGEX_FOR_HTTP_WWW_PREFIX, "");
         return pageCrawler;
     }
 
-    public void runPageCrawler() {
-        Optional<String> nextUrl = nextUrl();
+    public void runPageCrawler(ReportAnalyzer reportAnalyzer) {
+        var nextUrl = nextUrl();
         while (nextUrl.isPresent()) {
-            System.out.println(nextUrl.get());
-            pageDownloader
-                    .downloadPage(nextUrl.get())
-                    .ifPresent(doc -> pagesToVisit.addAll(linkSearcher.findAllLinksInDocument(doc, hostAddress)));
 
+            var document = pageDownloader.downloadPage(nextUrl.get());
+
+            if (document.isEmpty()) {
+                putEmptyPageIntoReport(reportAnalyzer, nextUrl.get());
+            } else {
+                LinkData allLinksInDocument = linkSearcher.findAllLinksInDocument(document.get(), hostAddress);
+
+                reportAnalyzer.consumer().accept(allLinksInDocument);
+                pagesToVisit.addAll(allLinksInDocument.getInternalLinks());
+            }
             nextUrl = nextUrl();
         }
     }
@@ -59,9 +70,8 @@ public class PageCrawler {
         return urlCandidate == null || pagesVisited.contains(urlCandidate);
     }
 
-    private PageCrawler() {
-        pagesVisited = new HashSet<>();
-        pagesToVisit = new LinkedList<>();
+    private void putEmptyPageIntoReport(ReportAnalyzer reportAnalyzer, String nextUrl) {
+        reportAnalyzer.consumer().accept(LinkData.builder().withPage(nextUrl).build());
     }
 
 }

@@ -20,13 +20,17 @@ class LinkSearcherTest {
     void findAllLinksInHtmlPage() throws IOException {
         // GIVEN
         var wikipedia = TestUtils.getPage(TestUtils.WIKIPEDIA_PAGE);
-        var expectedNumberOfLinks = 290; //under wikipedia.org and matching regex .+(/|html|htm)+$
+        var expectedNumberOfInternalLinks = 290; //under wikipedia.org and matching regex .+(/|html|htm)+$ and are inner
+        var expectedNumberOfExternalLinks = 14; //under wikipedia.org and matching regex .+(/|html|htm)+$ and are inner
+        var expectedNumberOfStaticLinks = 3; //under wikipedia.org
 
         // WHEN
-        var allLinksInDocument = linkSearcher.findAllLinksInDocument(wikipedia, "wikipedia.org");
+        LinkData allLinksInDocument = linkSearcher.findAllLinksInDocument(wikipedia, "wikipedia.org");
 
         // THEN
-        assertThat(allLinksInDocument, hasSize(expectedNumberOfLinks));
+        assertThat(allLinksInDocument.getInternalLinks(), hasSize(expectedNumberOfInternalLinks));
+        assertThat(allLinksInDocument.getExternalLinks(), hasSize(expectedNumberOfExternalLinks));
+        assertThat(allLinksInDocument.getStaticLinks(), hasSize(expectedNumberOfStaticLinks));
     }
 
     @Test
