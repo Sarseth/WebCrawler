@@ -62,6 +62,18 @@
                         </includes>
                     </configuration>
                 </plugin>
+                <!-- You can call main start with this command: mvn exec:java -Dexec.args="http://www.wipro.com" -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.6.0</version>
+                    <configuration>
+                        <mainClass>pl.sarseth.webcrawler.App</mainClass>
+                        <arguments>
+                            <argument>http://www.dustyfeet.com</argument>
+                        </arguments>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>

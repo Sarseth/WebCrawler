@@ -66,3 +66,6 @@ WC_21 (DONE):
 
 WC_22:
 - bug to fix, if page contains link to page.com/test and www.page.com/test it goes to both of them
+
+WC_23 (DONE):
+- easy run from console (using mvn for example)
