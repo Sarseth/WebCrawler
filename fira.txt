@@ -15,7 +15,7 @@ WC_04 (DONE):
 WC_05 (DONE):
 - User friendly report of found links
 
-WC_06:
+WC_06 (DONE):
 - make README.md with instructions
 
 WC_07:
@@ -69,3 +69,6 @@ WC_22:
 
 WC_23 (DONE):
 - easy run from console (using mvn for example)
+
+WC_24 (DONE):
+- bug with nullpointer while printing pages (example: http://mysmallwebpage.com/)

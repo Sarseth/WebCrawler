@@ -2,6 +2,7 @@ package pl.sarseth.webcrawler.page.link;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,11 +47,11 @@ public class LinkData {
 
         private String page;
 
-        private List<String> internalLinks;
+        private List<String> internalLinks = Collections.emptyList();
 
-        private List<String> externalLinks;
+        private List<String> externalLinks = Collections.emptyList();
 
-        private List<String> staticLinks;
+        private List<String> staticLinks = Collections.emptyList();
 
         public LinkData build() {
             Objects.requireNonNull(StringUtils.trimToNull(page), "Page url is required");
