@@ -72,3 +72,6 @@ WC_23 (DONE):
 
 WC_24 (DONE):
 - bug with nullpointer while printing pages (example: http://mysmallwebpage.com/)
+
+WC_25 (DONE):
+- print to file

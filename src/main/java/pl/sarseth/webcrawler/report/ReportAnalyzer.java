@@ -2,6 +2,8 @@ package pl.sarseth.webcrawler.report;
 
 import pl.sarseth.webcrawler.page.link.LinkData;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -21,17 +23,30 @@ public class ReportAnalyzer {
         return linkData -> linkDataList.add(linkData);
     }
 
+    public void saveToFileReport() throws FileNotFoundException {
+        var printWriter = new PrintWriter("report.txt");
+        for (LinkData linkData : linkDataList) {
+            var record = createRecordForUrl(linkData);
+            printWriter.print(record);
+        }
+        printWriter.close();
+    }
+
     public void printReport() {
         for (LinkData linkData : linkDataList) {
-            var reportInStringForm = linkData.getPage()
-                    + INTERNALS
-                    + linkData.getInternalLinks().stream().collect(Collectors.joining(PREFIX_FOR_INSIDE_ENTRIES, PREFIX_FOR_INSIDE_ENTRIES, NEW_LINE))
-                    + EXTERNAL
-                    + linkData.getExternalLinks().stream().collect(Collectors.joining(PREFIX_FOR_INSIDE_ENTRIES, PREFIX_FOR_INSIDE_ENTRIES, NEW_LINE))
-                    + STATIC
-                    + linkData.getStaticLinks().stream().collect(Collectors.joining(PREFIX_FOR_INSIDE_ENTRIES, PREFIX_FOR_INSIDE_ENTRIES, NEW_LINE));
+            var reportInStringForm = createRecordForUrl(linkData);
             System.out.println(reportInStringForm);
         }
+    }
+
+    private String createRecordForUrl(LinkData linkData) {
+        return linkData.getPage()
+                + INTERNALS
+                + linkData.getInternalLinks().stream().collect(Collectors.joining(PREFIX_FOR_INSIDE_ENTRIES, PREFIX_FOR_INSIDE_ENTRIES, NEW_LINE))
+                + EXTERNAL
+                + linkData.getExternalLinks().stream().collect(Collectors.joining(PREFIX_FOR_INSIDE_ENTRIES, PREFIX_FOR_INSIDE_ENTRIES, NEW_LINE))
+                + STATIC
+                + linkData.getStaticLinks().stream().collect(Collectors.joining(PREFIX_FOR_INSIDE_ENTRIES, PREFIX_FOR_INSIDE_ENTRIES, NEW_LINE));
     }
 
 }
